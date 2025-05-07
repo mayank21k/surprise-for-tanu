@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Surprise</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Background Music -->
+  <audio id="bg-music" autoplay loop>
+    <source src="your-music-file.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Popup on Page Load -->
+  <div id="initial-popup" class="popup">
+    <div class="popup-content">
+      <h2>Welcome!</h2>
+      <p>He Bappa! Tanu sathi ek choti si surprise ❤️ Let’s go ahead!</p>
+      <button onclick="closeInitialPopup()">Let's Go</button>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Happy Birthday Tanu! 🎉</h1>
+    <p>Yaadanchi ek choti si safar... ani cake cutting!</p>
+  </section>
+
+ <!-- Gallery Section -->
+<section class="gallery">
+    <div class="carousel" id="cards-container">
+      <div class="flip-card">
+        <div class="flip-card-inner" onclick="flipCard(this)">
+          <div class="flip-card-front">
+            <img src="images/Pic 1.jpg" alt="Image 1">
+          </div>
+          <div class="flip-card-back">
+            You're truly a gem, shining in your own way!
+          </div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-card-inner" onclick="flipCard(this)">
+          <div class="flip-card-front">
+            <img src="images/Pic 2.jpg" alt="Image 2">
+          </div>
+          <div class="flip-card-back">
+            Tula bhetun jagach sundar disatay!
+          </div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div class="flip-card-inner" onclick="flipCard(this)">
+          <div class="flip-card-front">
+            <img src="images/Pic 3.jpg" alt="Image 3">
+          </div>
+          <div class="flip-card-back">
+            Dance queen! Kathak cha swarup!
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <!-- Cake and Candle Section -->
+  <section class="cake">
+    <div class="animated-flowers"></div>
+    <div class="animated-crackers"></div>
+    <div class="cake-box">
+      <div class="cake-body"></div>
+      <div class="candles">
+        <div class="candle" onclick="burnCandle(this)"></div>
+        <div class="candle" onclick="burnCandle(this)"></div>
+        <div class="candle" onclick="burnCandle(this)"></div>
+        <div class="candle" onclick="burnCandle(this)"></div>
+        <div class="candle" onclick="burnCandle(this)"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Popup After Candles -->
+  <div id="final-popup" class="popup hidden">
+    <div class="popup-content">
+      <h2>Wow Tanu, cake cut zala!</h2>
+      <p id="marathi-message">Thank you for this moment. Bappa tujhya sobat asel hamesha.</p>
+      <button onclick="showThankYouPopup()">Continue</button>
+    </div>
+  </div>
+
+  <!-- Typewriter + Final Thank You Popup -->
+  <div id="thank-you-popup" class="popup hidden">
+    <div class="popup-content">
+      <h3>Tanu, tu ekdam special ahes! 😍</h3>
+      <p id="typewriter"></p>
+      <div class="btn-row">
+        <button onclick="closeWebsite(true)">Yes Yes!</button>
+        <button onclick="closeWebsite(false)">No</button>
+      </div>
+      <div class="pretty-msg" id="final-msg"></div>
+    </div>
+  </div>
+
+  <script>
+    let candleCount = 0;
+
+    function closeInitialPopup() {
+      document.getElementById('initial-popup').style.display = 'none';
+    }
+
+    function pauseScroll(card) {
+      card.classList.toggle('flipped');
+    }
+
+    function burnCandle(elem) {
+      if (!elem.classList.contains('burned')) {
+        elem.classList.add('burned');
+        candleCount++;
+      }
+      if (candleCount === 5) {
+        setTimeout(() => {
+          document.getElementById('final-popup').classList.remove('hidden');
+        }, 1000);
+      }
+    }
+
+    function showThankYouPopup() {
+      document.getElementById('final-popup').classList.add('hidden');
+      document.getElementById('thank-you-popup').classList.remove('hidden');
+      typeWriter();
+    }
+
+    let message = "Tanu is the best! Her Kathak is divine, Bappa is always with her. She's strong, sweet, and can light up any moment!";
+    let i = 0;
+
+    function typeWriter() {
+      if (i < message.length) {
+        document.getElementById("typewriter").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 60);
+      }
+    }
+
+    function closeWebsite(like) {
+      document.getElementById('thank-you-popup').innerHTML = like ?
+        '<h3>God bless you, Tanu! 🌟</h3><p>Tu hamesha hasat raha!</p>' :
+        '<h3>Hope you liked it! 🥹</h3><p>Tu best ahes!</p>';
+      setTimeout(() => window.close(), 8000);
+    }
+  </script>
+</body>
+</html>
